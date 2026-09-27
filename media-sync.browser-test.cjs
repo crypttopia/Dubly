@@ -1,0 +1,21 @@
+const {chromium}=require('C:/Users/ASUS/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright');
+const assert=require('node:assert/strict');const path=require('node:path');
+(async()=>{const browser=await chromium.launch({channel:'chrome',headless:true});try{
+ const page=await browser.newPage({viewport:{width:900,height:650}});
+ await page.setContent('<video autoplay muted playsinline style="width:800px;height:450px"></video>');
+ await page.evaluate(()=>{const canvas=document.createElement('canvas');canvas.width=800;canvas.height=450;const context=canvas.getContext('2d');setInterval(()=>context.fillRect(0,0,800,450),40);document.querySelector('video').srcObject=canvas.captureStream(25);window.messages=[];window.chrome={runtime:{onMessage:{addListener(fn){window.messages.push(fn)}}}}});
+ await page.waitForFunction(()=>document.querySelector('video').currentTime>0);
+ await page.addScriptTag({path:path.resolve('media-sync.js')});
+ const msg=data=>page.evaluate(data=>window.messages[0]({target:'mediaSync',session:'sync-test',...data},{},()=>{}),data);
+ await msg({type:'begin'});
+ await msg({type:'hold',durationMs:450});
+ assert.equal(await page.locator('video').evaluate(video=>video.paused),true);
+ await page.waitForTimeout(550);
+ assert.equal(await page.locator('video').evaluate(video=>video.paused),false);
+ await msg({type:'hold',durationMs:1000});
+ assert.equal(await page.locator('video').evaluate(video=>video.paused),true);
+ await msg({type:'end'});
+ await page.waitForTimeout(50);
+ assert.equal(await page.locator('video').evaluate(video=>video.paused),false);
+ console.log('PASS: dubbing sync holds active media briefly and always restores playback.');
+}finally{await browser.close();}})().catch(error=>{console.error(error);process.exitCode=1});

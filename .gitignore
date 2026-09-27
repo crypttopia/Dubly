@@ -1,0 +1,49 @@
+# Secrets and local configuration
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+credentials*.json
+secrets*.json
+
+# Generated extension packages
+*.zip
+*.crx
+*.xpi
+/extension/
+/_refzip/
+/_refzip*/
+
+# Generated previews and browser-test artifacts
+/*-preview.png
+/preview-*.png
+/subtitles-fullscreen.png
+/preview.html
+/preview-mock.js
+/test-results/
+/playwright-report/
+
+# Local tooling and dependencies
+/.build-deps/
+/node_modules/
+/.cache/
+/.codex/
+/.vscode/
+/.idea/
+
+# Private design references
+/design-reference/
+
+# Logs, temporary files, and OS metadata
+*.log
+*.tmp
+*.temp
+*.bak
+*.swp
+*~
+.DS_Store
+Thumbs.db
+desktop.ini

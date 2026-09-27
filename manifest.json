@@ -1,0 +1,14 @@
+{
+  "manifest_version": 3,
+  "name": "Dubly",
+  "version": "0.9.26",
+  "icons": { "16": "logo.png", "32": "logo.png", "48": "logo.png", "128": "logo.png" },
+  "description": "Live tab audio translation and voice typing powered by Google Gemini using your own API key.",
+  "minimum_chrome_version": "116",
+  "permissions": ["activeTab", "tabCapture", "offscreen", "storage", "scripting"],
+  "host_permissions": ["https://generativelanguage.googleapis.com/*"],
+  "optional_host_permissions": ["http://*/*", "https://*/*"],
+  "background": { "service_worker": "background.js" },
+  "action": { "default_popup": "popup.html", "default_title": "Dubly", "default_icon": { "16": "logo.png", "32": "logo.png" } },
+  "content_security_policy": { "extension_pages": "script-src 'self'; object-src 'self'; connect-src wss://generativelanguage.googleapis.com" }
+}

@@ -1,0 +1,50 @@
+const {chromium} = require('C:/Users/ASUS/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright');
+const assert = require('node:assert/strict');
+const path = require('node:path');
+(async()=>{
+ const browser=await chromium.launch({channel:'chrome',headless:true});
+ try {
+  const page=await browser.newPage({viewport:{width:1000,height:720}});
+  await page.setContent('<style>body{background:#182033;color:white;font:18px Arial}video{width:800px;height:450px}</style><h1>Dubly subtitle test</h1><video muted autoplay playsinline></video><button id="full">Fullscreen</button>');
+  await page.evaluate(()=>{
+   window.messages=[];window.chrome={runtime:{onMessage:{addListener(fn){window.messages.push(fn)}}}};
+   const canvas=document.createElement('canvas');canvas.width=800;canvas.height=450;
+   const ctx=canvas.getContext('2d');let frame=0;
+   setInterval(()=>{ctx.fillStyle='#344764';ctx.fillRect(0,0,800,450);ctx.fillStyle='#9bdde0';ctx.fillRect(60+(frame++%400),100,150,100);},40);
+   document.querySelector('video').srcObject=canvas.captureStream(25);
+   document.getElementById('full').onclick=()=>document.querySelector('video').requestFullscreen();
+  });
+  await page.waitForFunction(()=>document.querySelector('video').currentTime>0);
+  await page.addScriptTag({path:path.resolve('subtitles.js')});
+  const message=async data=>page.evaluate(data=>window.messages[0]({target:'subtitles',session:'test',...data},{},()=>{}),data);
+  await message({type:'begin'});
+  await message({type:'text',text:'سلام! این زیرنویس زندهٔ آزمایشی است.'});
+  assert.equal(await page.evaluate(()=>document.querySelector('video').textTracks[0].cues.length),1);
+  assert.equal(await page.evaluate(()=>document.querySelector('video').textTracks[0].cues[0].align),'right');
+  await message({type:'text',text:'این جملهٔ بعدی است.',delayMs:300});
+  assert.equal(await page.evaluate(()=>document.querySelector('video').textTracks[0].cues[0].text),'این جملهٔ بعدی است.');
+  assert.ok(await page.evaluate(()=>document.querySelector('video').textTracks[0].cues[0].startTime-document.querySelector('video').currentTime>.15));
+  await page.screenshot({path:'subtitles-preview.png'});
+  await page.click('#full');
+  await message({type:'text',text:'زیرنویس در حالت تمام‌صفحه'});
+  assert.equal(await page.evaluate(()=>document.fullscreenElement.tagName),'VIDEO');
+  assert.equal(await page.evaluate(()=>document.querySelector('video').textTracks[0].mode),'showing');
+  await page.screenshot({path:'subtitles-fullscreen.png'});
+  await page.evaluate(()=>document.exitFullscreen());
+  await page.evaluate(()=>document.querySelector('video').pause());
+  assert.equal(await page.evaluate(()=>document.querySelector('video').textTracks[0].cues.length),0);
+  await page.evaluate(()=>document.querySelector('video').play());
+  await message({type:'text',text:'Old session should not overwrite this.'});
+  await page.evaluate(()=>window.messages[0]({target:'subtitles',type:'text',session:'old',text:'wrong'},{},()=>{}));
+  assert.match(await page.evaluate(()=>document.querySelector('video').textTracks[0].cues[0].text),/Old session/);
+  await message({type:'end'});
+  assert.equal(await page.evaluate(()=>document.querySelector('video').textTracks[0].mode),'disabled');
+  assert.equal(await page.evaluate(()=>document.querySelector('video').textTracks[0].cues?.length||0),0);
+  await message({type:'begin'});
+  assert.equal(await page.evaluate(()=>document.querySelector('video').textTracks[0].cues.length),0);
+  await message({type:'text',text:'Restarted'});
+  assert.equal(await page.evaluate(()=>document.querySelector('video').textTracks.length),1);
+  await message({type:'end'});
+  console.log('PASS: native video captions, fullscreen, pause, stop, stale session and track reuse.');
+ } finally {await browser.close();}
+})().catch(e=>{console.error(e);process.exitCode=1;});
