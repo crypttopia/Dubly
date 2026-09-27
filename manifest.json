@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Dubly",
-  "version": "0.9.26",
+  "version": "0.9.27",
   "icons": { "16": "logo.png", "32": "logo.png", "48": "logo.png", "128": "logo.png" },
   "description": "Live tab audio translation and voice typing powered by Google Gemini using your own API key.",
   "minimum_chrome_version": "116",

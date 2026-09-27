@@ -12,7 +12,7 @@
     <img src="https://img.shields.io/badge/Manifest-V3-4285F4?logo=googlechrome&logoColor=white" alt="Manifest V3">
     <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-7C3AED" alt="MIT License"></a>
     <img src="https://img.shields.io/badge/Chrome-116%2B-34A853?logo=googlechrome&logoColor=white" alt="Chrome 116+">
-    <img src="https://img.shields.io/badge/Version-0.9.26-8B5CF6" alt="Dubly 0.9.26">
+    <img src="https://img.shields.io/badge/Version-0.9.27-8B5CF6" alt="Dubly 0.9.27">
   </p>
   <p>
     <a href="https://chromewebstore.google.com/detail/dubly/fendjlfddioginhjfehfchdmoddlbnlp"><strong>نصب از Chrome Web Store</strong></a>

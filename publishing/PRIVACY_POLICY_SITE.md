@@ -1,6 +1,6 @@
 # Dubly Privacy Policy
 
-Last updated: September 27, 2026. This policy describes Dubly version 0.9.26.
+Last updated: September 27, 2026. This policy describes Dubly version 0.9.27.
 
 Dubly is an independent Chrome extension for live AI dubbing of audio from a browser tab you choose and optional Voice Typing. It uses your own Google Gemini API key. Voice Typing captures microphone audio only after you press Start on its floating control and sends it directly to Gemini Transcribe Live for real-time speech-to-text.
 

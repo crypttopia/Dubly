@@ -11,7 +11,7 @@ const path=require('node:path');
   await page.evaluate(()=>{
     const local={key:'saved-key',uiLanguage:'fa',language:'en',outputMode:'subtitles'};
     const area=data=>({async setAccessLevel(){},async get(keys){return Object.fromEntries((Array.isArray(keys)?keys:[keys]).map(key=>[key,data[key]]));},async set(values){Object.assign(data,values)},async remove(key){delete data[key]}});
-    window.chrome={storage:{local:area(local),session:area({})},runtime:{getURL:value=>value,getManifest:()=>({version:'0.9.26'}),sendMessage:async message=>message.type==='voiceContext'?{supported:true,title:'Telegram',domain:'web.telegram.org'}:{state:'idle'}}};
+    window.chrome={storage:{local:area(local),session:area({})},runtime:{getURL:value=>value,getManifest:()=>({version:'0.9.27'}),sendMessage:async message=>message.type==='voiceContext'?{supported:true,title:'Telegram',domain:'web.telegram.org'}:{state:'idle'}}};
   });
   await page.addScriptTag({path:path.resolve('site-config.js')});
   await page.addScriptTag({path:path.resolve('i18n.js')});

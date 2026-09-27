@@ -1,6 +1,6 @@
 # Dubly Terms of Use
 
-Last updated: September 27, 2026. These terms describe Dubly version 0.9.26.
+Last updated: September 27, 2026. These terms describe Dubly version 0.9.27.
 
 ## Service and API key
 
