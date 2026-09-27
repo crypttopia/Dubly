@@ -19,7 +19,10 @@ function harness() {
   vm.runInContext(fs.readFileSync('offscreen.js', 'utf8'), context);
   return {context, gains, messages, get socket() {return socket;}, get stopped() {return stopped;}};
 }
-test('setup places transcription at setup level and keeps translation in generationConfig', async () => {
+// Google's official serializer uses setup.outputAudioTranscription:
+// https://github.com/googleapis/js-genai/blob/main/src/converters/_live_converters.ts
+// This is a wire-shape regression test, not a live Google handshake test.
+test('setup follows Google SDK transcription placement and translation configuration', async () => {
   const h = harness();
   await vm.runInContext("start({key: 'test-key', streamId: 'test-stream', language: 'fa'})", h.context);
   h.socket.onopen();

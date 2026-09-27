@@ -1,8 +1,8 @@
-const {chromium} = require('C:/Users/ASUS/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright');
+const {chromium} = require('playwright');
 const assert = require('node:assert/strict');
 const path = require('node:path');
 (async()=>{
- const browser=await chromium.launch({channel:'chrome',headless:true});
+ const browser=await chromium.launch({channel:process.env.DUBLY_BROWSER_CHANNEL || undefined,headless:true});
  try {
   const page=await browser.newPage({viewport:{width:1000,height:720}});
   await page.setContent('<style>body{background:#182033;color:white;font:18px Arial}video{width:800px;height:450px}</style><h1>Dubly subtitle test</h1><video muted autoplay playsinline></video><button id="full">Fullscreen</button>');

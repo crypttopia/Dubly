@@ -271,7 +271,7 @@ async function init() {
   $('dubVolume').value = preferences.dubVolume ?? 100;
   const version = chrome.runtime.getManifest().version;
   if ($('footerVersion')) $('footerVersion').textContent = 'Dubly · v' + version;
-  $('sessionLimit').value = preferences.limitMinutes || '0';
+  $('sessionLimit').value = String(preferences.limitMinutes ?? 30);
   theme = ['dark', 'light', 'auto'].includes(preferences.theme) ? preferences.theme : 'auto';
   captionsVisible = preferences.captionsVisible !== false;
   $('captionsToggle').checked = captionsVisible; $('transcriptBody').hidden = !captionsVisible;

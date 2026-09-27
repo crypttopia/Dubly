@@ -12,7 +12,7 @@
     <img src="https://img.shields.io/badge/Manifest-V3-4285F4?logo=googlechrome&logoColor=white" alt="Manifest V3">
     <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-7C3AED" alt="MIT License"></a>
     <img src="https://img.shields.io/badge/Chrome-116%2B-34A853?logo=googlechrome&logoColor=white" alt="Chrome 116+">
-    <img src="https://img.shields.io/badge/Version-0.9.27-8B5CF6" alt="Dubly 0.9.27">
+    <img src="https://img.shields.io/badge/Version-0.9.28-8B5CF6" alt="Dubly 0.9.28">
   </p>
   <p>
     <a href="https://chromewebstore.google.com/detail/dubly/fendjlfddioginhjfehfchdmoddlbnlp"><strong>نصب از Chrome Web Store</strong></a>
@@ -244,14 +244,12 @@ Text / Input Field
 
 ## توسعه، تست و بسته‌بندی
 
-تست‌ها به Node.js نیاز دارند و تست‌های مرورگر علاوه بر آن به Playwright و Chrome وابسته‌اند.
+از Node.js نسخهٔ ۲۲ یا جدیدتر استفاده کنید. تست‌های مرورگر با نسخهٔ مشخص Playwright Chromium اجرا می‌شوند. GitHub Actions همین تست‌ها را در هر Push و Pull Request اجرا می‌کند. سرویس گوگل در تست‌ها شبیه‌سازی شده است؛ اتصال زندهٔ API با این تست‌ها تأیید نمی‌شود.
 
-```powershell
-$tests = @(Get-ChildItem -Filter '*.test.cjs'; Get-ChildItem -Filter '*.browser-test.cjs') | Sort-Object Name
-foreach ($test in $tests) {
-  node --test $test.FullName
-  if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-}
+```bash
+npm ci
+npx playwright install chromium
+npm test
 ```
 
 برای ساخت بستهٔ Chrome Web Store:
@@ -289,6 +287,8 @@ Roadmap زیر جهت‌های احتمالی توسعه را نشان می‌د
 - گسترش و بهبود تجربهٔ چندزبانه
 
 ## محدودیت‌های فعلی
+
+در نصب جدید، توقف خودکار ترجمه به‌صورت پیش‌فرض روی ۳۰ دقیقه است؛ تنظیم قبلی کاربران، از جمله حالت نامحدود، حفظ می‌شود. مصرف سرویس گوگل ممکن است هزینه داشته باشد. هنگام بررسی انتشار توسط فروشگاه، نسخهٔ GitHub ممکن است جدیدتر از نسخهٔ Web Store باشد.
 
 - کیفیت و دسترسی ترجمه و رونویسی به مدل، منطقه، اینترنت و سهمیهٔ API کاربر وابسته است.
 - Dubly هماهنگ‌سازی حرکت لب یا جداسازی موسیقی از گفتار انجام نمی‌دهد.

@@ -220,7 +220,8 @@ async function startVoice(message) {
 }
 async function failVoice(message) { voiceError=message; await publishVoice('voiceError',{error:message}); await stopVoice(false); }
 chrome.runtime.onMessage.addListener((message, sender, reply) => {
-  if (message.target !== 'audio') return;
+  if (!message || message.target !== 'audio') return;
+  if (sender.id !== chrome.runtime.id || sender.tab || sender.url !== chrome.runtime.getURL('background.js')) return;
   if (message.type === 'stop') { state = 'idle'; cleanup().then(() => reply(status())); return true; }
   if (message.type === 'volume') { if (state === 'live' || state === 'connecting') setVolumes(message); reply(status()); return; }
   if (message.type === 'status') { reply(status()); return; }

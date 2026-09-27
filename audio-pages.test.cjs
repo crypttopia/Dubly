@@ -30,7 +30,7 @@ test('subtitle translation starts on an audio-only page without a video element'
   };
   const context=vm.createContext({chrome,crypto:require('node:crypto').webcrypto,URL,WebSocket:class{},setTimeout,clearTimeout,importScripts(){},activityDay(){},addActivity(){}});
   vm.runInContext(fs.readFileSync('background.js','utf8'),context);
-  const result=await new Promise(resolve=>messageListener({target:'background',type:'start',key:'key',mode:'subtitles',floatingCaptions:true,language:'fa',originalVolume:100,dubVolume:0},{},resolve));
+  const result=await new Promise(resolve=>messageListener({target:'background',type:'start',key:'key',mode:'subtitles',floatingCaptions:true,language:'fa',originalVolume:100,dubVolume:0},{url:'popup.html'},resolve));
   assert.equal(result.state,'connecting');
   assert.equal(scripts[0].target.tabId,17);
   assert.ok(tabMessages.some(item=>item.message.type==='begin'&&item.message.floating===true));

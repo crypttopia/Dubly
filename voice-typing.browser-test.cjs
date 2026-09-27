@@ -1,8 +1,8 @@
-const {chromium}=require('C:/Users/ASUS/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright');
+const {chromium}=require('playwright');
 const assert=require('node:assert/strict');
 const path=require('node:path');
 
-(async()=>{const browser=await chromium.launch({channel:'chrome',headless:true});try{
+(async()=>{const browser=await chromium.launch({channel:process.env.DUBLY_BROWSER_CHANNEL || undefined,headless:true});try{
   const page=await browser.newPage();
   const pageErrors=[];page.on('pageerror',error=>pageErrors.push(error.message));
   await page.setContent('<main id="plain">A page without any text field</main>');

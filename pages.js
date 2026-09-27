@@ -5,7 +5,7 @@ let selectedWallet = 0;
 let page = new URLSearchParams(location.search).get('page') || 'about';
 const pick = (fa, en) => lang === 'fa' ? fa : en;
 const api = globalThis.chrome?.runtime?.id ? chrome : null;
-const currentVersion = api?.runtime?.getManifest?.().version || '0.9.27';
+const currentVersion = api?.runtime?.getManifest?.().version || '0.9.28';
 const send = (type, extra = {}) => api.runtime.sendMessage({target:'background',type,...extra});
 function el(tag, text, parent = $('content')) {const node=document.createElement(tag); if(text)node.textContent=text; parent.append(node); return node;}
 function section(title, paragraphs) {const box=el('section');el('h2',title,box);for(const p of paragraphs)el('p',p,box);return box;}

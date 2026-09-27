@@ -1,6 +1,6 @@
-const {chromium}=require('C:/Users/ASUS/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright');
+const {chromium}=require('playwright');
 const assert=require('node:assert/strict');const path=require('node:path');
-(async()=>{const browser=await chromium.launch({channel:'chrome',headless:true});try{
+(async()=>{const browser=await chromium.launch({channel:process.env.DUBLY_BROWSER_CHANNEL || undefined,headless:true});try{
  const page=await browser.newPage({viewport:{width:900,height:650}});
  await page.setContent('<div id="player"><video autoplay muted playsinline style="width:800px;height:450px"></video></div><button id="video-fullscreen">Video fullscreen</button><button id="player-fullscreen">Player fullscreen</button>');
  await page.evaluate(()=>{const c=document.createElement('canvas');c.width=800;c.height=450;const ctx=c.getContext('2d');setInterval(()=>{ctx.fillStyle='#345';ctx.fillRect(0,0,800,450);},40);document.querySelector('video').srcObject=c.captureStream(25);window.messages=[];window.chrome={runtime:{onMessage:{addListener(fn){window.messages.push(fn)}}}}});
@@ -10,14 +10,22 @@ const assert=require('node:assert/strict');const path=require('node:path');
  assert.equal(await page.locator('#dubly-floating-caption').count(),1);
  assert.equal(await page.locator('#dubly-floating-caption').textContent(),'متن شناور آزمایشی');
  assert.equal(await page.locator('#dubly-floating-caption').evaluate(e=>getComputedStyle(e).position),'fixed');
+ assert.equal(await page.locator('#dubly-floating-caption').evaluate(e=>getComputedStyle(e).direction),'rtl');
+ await msg({type:'text',text:'Hello world',delayMs:0});
+ await page.waitForFunction(()=>document.getElementById('dubly-floating-caption')?.textContent==='Hello world');
+ assert.equal(await page.locator('#dubly-floating-caption').evaluate(e=>getComputedStyle(e).direction),'ltr');
+ assert.equal(await page.locator('#dubly-floating-caption').evaluate(e=>getComputedStyle(e).textAlign),'left');
  await page.locator('#video-fullscreen').evaluate(button=>button.addEventListener('click',()=>document.querySelector('video').requestFullscreen()));
  await page.click('#video-fullscreen');
  await page.waitForFunction(()=>document.fullscreenElement?.tagName==='VIDEO'&&!document.querySelector('#dubly-floating-caption'));
  assert.equal(await page.evaluate(()=>document.fullscreenElement?.tagName),'VIDEO');
  assert.equal(await page.locator('#dubly-floating-caption').count(),0);
  assert.equal(await page.evaluate(()=>document.querySelector('video').textTracks[0].mode),'showing');
- assert.equal(await page.evaluate(()=>document.querySelector('video').textTracks[0].cues[0]?.text),'متن شناور آزمایشی');
+ assert.equal(await page.evaluate(()=>document.querySelector('video').textTracks[0].cues[0]?.text),'Hello world');
+ assert.equal(await page.evaluate(()=>document.querySelector('video').textTracks[0].cues[0]?.align),'left');
  await page.evaluate(()=>document.exitFullscreen());
+ await msg({type:'text',text:'متن شناور آزمایشی',delayMs:0});
+ await page.waitForFunction(()=>document.getElementById('dubly-floating-caption')?.textContent==='متن شناور آزمایشی');
  assert.equal(await page.locator('#dubly-floating-caption').textContent(),'متن شناور آزمایشی');
  await page.locator('#player-fullscreen').evaluate(button=>button.addEventListener('click',()=>document.querySelector('#player').requestFullscreen()));
  await page.click('#player-fullscreen');
@@ -30,6 +38,13 @@ const assert=require('node:assert/strict');const path=require('node:path');
  await audioPage.addScriptTag({path:path.resolve('subtitles.js')});
  const audioMsg=data=>audioPage.evaluate(data=>window.messages[0]({target:'subtitles',session:'audio',...data},{},()=>{}),data);
  await audioMsg({type:'begin',floating:true});
+ await audioPage.evaluate(()=>{
+   window.fullScans=0;
+   const query=document.querySelectorAll.bind(document);
+   document.querySelectorAll=selector=>{if(selector==='*')window.fullScans++;return query(selector);};
+ });
+ for(let index=0;index<20;index++)await audioPage.evaluate(()=>document.body.append(document.createElement('span')));
+ assert.ok(await audioPage.evaluate(()=>window.fullScans)<=1,'DOM mutation bursts must not trigger repeated full-page scans');
  await audioMsg({type:'text',text:'ترجمهٔ زندهٔ اسپیس',delayMs:0});
  await audioPage.waitForTimeout(100);
  assert.equal(await audioPage.locator('#dubly-floating-caption').textContent(),'ترجمهٔ زندهٔ اسپیس');

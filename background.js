@@ -1,4 +1,19 @@
 importScripts('activity.js');
+// Content scripts never need access to the user's key or preferences.
+const storageReady = chrome.storage.local.setAccessLevel
+  ? chrome.storage.local.setAccessLevel({accessLevel:'TRUSTED_CONTEXTS'}) : Promise.resolve();
+async function authorizedMessage(message, sender) {
+  if (sender.id !== chrome.runtime.id) return false;
+  const internal = name => !sender.tab && sender.url === chrome.runtime.getURL(name);
+  const audioTypes = ['voiceState','voiceText','voiceError','subtitleText','subtitleEnd','subtitleClear','syncHold','syncEnd','activitySample','badge'];
+  if (audioTypes.includes(message.type)) return internal('offscreen.html');
+  if (sender.url === chrome.runtime.getURL('popup.html') || sender.url === chrome.runtime.getURL('pages.html') || sender.url?.startsWith(chrome.runtime.getURL('pages.html')+'?')) return true;
+  if (sender.url?.startsWith(chrome.runtime.getURL('mic-permission.html')+'?')) return ['voiceEnableForTab','openMicrophoneSettings'].includes(message.type);
+  if (!['voiceToggle','voiceDisable'].includes(message.type)) return false;
+  const {voiceTarget} = await chrome.storage.session.get('voiceTarget');
+  return !!voiceTarget && sender.tab?.id === voiceTarget.tabId && sender.frameId === voiceTarget.frameId
+    && message.session === voiceTarget.session;
+}
 let starting = false;
 let activityQueue = Promise.resolve();
 function testConnection(key, language) {
@@ -164,8 +179,10 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
 });
 chrome.tabs.onRemoved.addListener(tabId => { void stopVoiceTypingForTab(tabId); });
 chrome.runtime.onMessage.addListener((message, sender, reply) => {
-  if (message.target !== 'background') return;
+  if (!message || message.target !== 'background' || typeof message.type !== 'string') return;
   (async () => {
+    await storageReady;
+    if (!await authorizedMessage(message, sender)) return {error:'Unauthorized message.'};
     if (message.type === 'voiceState') return sendVoiceToPage('state',message.session,{state:message.state});
     if (message.type === 'voiceText') return sendVoiceToPage('text',message.session,{text:message.text,final:!!message.final});
     if (message.type === 'voiceError') return sendVoiceToPage('error',message.session,{error:message.error});

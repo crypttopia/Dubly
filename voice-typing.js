@@ -5,7 +5,7 @@
   let minimized = false, dragMoved = false, uiLanguage = 'fa', statusValue = 'idle', recording = false;
   const pick = (fa, en) => uiLanguage === 'fa' ? fa : en;
   async function closeControl() {
-    try { await chrome.runtime.sendMessage({target:'background',type:'voiceDisable'}); }
+    try { await chrome.runtime.sendMessage({target:'background',type:'voiceDisable',session}); }
     catch { /* The extension may have been reloaded while this page stayed open. */ }
     finally { stop(); }
   }

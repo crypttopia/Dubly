@@ -1,0 +1,11 @@
+{
+  "name": "dubly",
+  "version": "0.9.28",
+  "private": true,
+  "scripts": {
+    "test": "node scripts/test.cjs",
+    "test:unit": "node scripts/test.cjs unit",
+    "test:browser": "node scripts/test.cjs browser"
+  },
+  "devDependencies": {"playwright": "1.58.2"}
+}

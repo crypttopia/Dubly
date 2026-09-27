@@ -1,6 +1,6 @@
-const {chromium}=require('C:/Users/ASUS/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright');
+const {chromium}=require('playwright');
 const assert=require('node:assert/strict');const path=require('node:path');
-(async()=>{const browser=await chromium.launch({channel:'chrome',headless:true});try{
+(async()=>{const browser=await chromium.launch({channel:process.env.DUBLY_BROWSER_CHANNEL || undefined,headless:true});try{
  const page=await browser.newPage({viewport:{width:900,height:650}});
  await page.setContent('<video autoplay muted playsinline style="width:800px;height:450px"></video>');
  await page.evaluate(()=>{const canvas=document.createElement('canvas');canvas.width=800;canvas.height=450;const context=canvas.getContext('2d');setInterval(()=>context.fillRect(0,0,800,450),40);document.querySelector('video').srcObject=canvas.captureStream(25);window.messages=[];window.chrome={runtime:{onMessage:{addListener(fn){window.messages.push(fn)}}}}});

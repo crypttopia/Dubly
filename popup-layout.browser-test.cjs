@@ -1,9 +1,9 @@
-const {chromium}=require('C:/Users/ASUS/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright');
+const {chromium}=require('playwright');
 const assert=require('node:assert/strict');
 const fs=require('node:fs');
 const path=require('node:path');
 
-(async()=>{const browser=await chromium.launch({channel:'chrome',headless:true});try{
+(async()=>{const browser=await chromium.launch({channel:process.env.DUBLY_BROWSER_CHANNEL || undefined,headless:true});try{
   const page=await browser.newPage({viewport:{width:420,height:600}});
   const html=fs.readFileSync('popup.html','utf8').replace(/<link[^>]+popup\.css[^>]*>/,'').replace(/<script[\s\S]*$/,'</body></html>');
   await page.setContent(html);
@@ -11,7 +11,7 @@ const path=require('node:path');
   await page.evaluate(()=>{
     const local={key:'saved-key',uiLanguage:'fa',language:'en',outputMode:'subtitles'};
     const area=data=>({async setAccessLevel(){},async get(keys){return Object.fromEntries((Array.isArray(keys)?keys:[keys]).map(key=>[key,data[key]]));},async set(values){Object.assign(data,values)},async remove(key){delete data[key]}});
-    window.chrome={storage:{local:area(local),session:area({})},runtime:{getURL:value=>value,getManifest:()=>({version:'0.9.27'}),sendMessage:async message=>message.type==='voiceContext'?{supported:true,title:'Telegram',domain:'web.telegram.org'}:{state:'idle'}}};
+    window.chrome={storage:{local:area(local),session:area({})},runtime:{getURL:value=>value,getManifest:()=>({version:'0.9.28'}),sendMessage:async message=>message.type==='voiceContext'?{supported:true,title:'Telegram',domain:'web.telegram.org'}:{state:'idle'}}};
   });
   await page.addScriptTag({path:path.resolve('site-config.js')});
   await page.addScriptTag({path:path.resolve('i18n.js')});

@@ -2,7 +2,11 @@
 (() => {
   if (globalThis.__dublySubtitles) return globalThis.__dublySubtitles.describe();
   let session = '', media, video, track, expiry, scan, observer, floating = false, overlay, overlayTimer;
-  let floatingText = '', floatingUntil = 0;
+  let floatingText = '', floatingUntil = 0, attachTimer = 0, lastScan = -Infinity, cachedCandidates = [];
+  function isRtl(text) {
+    const first = text.match(/\p{L}/u)?.[0] || '';
+    return /[\u0590-\u08ff\ufb1d-\ufdff\ufe70-\ufeff]/.test(first);
+  }
   const tracks = new WeakMap();
   function candidates(root = document) {
     const found = [...root.querySelectorAll('video,audio')];
@@ -10,7 +14,8 @@
     return found;
   }
   function choose() {
-    return candidates().filter(item => item instanceof HTMLAudioElement || (() => { const r=item.getBoundingClientRect();return r.width>80&&r.height>45; })())
+    if (Date.now() - lastScan >= 1000) { cachedCandidates = candidates(); lastScan = Date.now(); }
+    return cachedCandidates.filter(item => item.isConnected).filter(item => item instanceof HTMLAudioElement || (() => { const r=item.getBoundingClientRect();return r.width>80&&r.height>45; })())
       .sort((a,b) => Number(!b.paused)-Number(!a.paused) || Number(b instanceof HTMLVideoElement)-Number(a instanceof HTMLVideoElement) || b.clientWidth*b.clientHeight-a.clientWidth*a.clientHeight)[0];
   }
   function clear() {
@@ -33,7 +38,8 @@
       if (track) {
         const remaining = Math.max(.1, (floatingUntil - Date.now()) / 1000);
         const cue = new VTTCue(video.currentTime, video.currentTime + remaining * Math.max(1, video.playbackRate), floatingText);
-        cue.align = 'right'; cue.position = 90; cue.positionAlign = 'line-right'; cue.line = -3; cue.size = 80;
+        const rtl = isRtl(floatingText);
+        cue.align = rtl ? 'right' : 'left'; cue.position = rtl ? 90 : 10; cue.positionAlign = rtl ? 'line-right' : 'line-left'; cue.line = -3; cue.size = 80;
         track.addCue(cue);
       }
       return;
@@ -45,6 +51,8 @@
     const host = fullscreen && media && (fullscreen===media || fullscreen.contains(media)) ? fullscreen : document.documentElement;
     if (overlay.parentNode !== host) host.append(overlay);
     overlay.textContent = floatingText;
+    overlay.style.direction = isRtl(floatingText) ? 'rtl' : 'ltr';
+    overlay.style.textAlign = isRtl(floatingText) ? 'right' : 'left';
   }
   function onFullscreenChange() { if (floatingText) syncFloating(); }
   function show(text, delayMs) {
@@ -65,7 +73,7 @@
     const safeText = text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
     const start = video.currentTime + Math.max(0, Math.min(1500, Number(delayMs) || 0)) / 1000;
     const cue = new VTTCue(start, start + seconds * Math.max(1, video.playbackRate), safeText);
-    const rtl = /[\u0600-\u06ff\u0590-\u05ff]/.test(text);
+    const rtl = isRtl(text);
     cue.align = rtl ? 'right' : 'left';
     cue.position = rtl ? 90 : 10; cue.positionAlign = rtl ? 'line-right' : 'line-left'; cue.line = -3; cue.size = 80;
     track.mode = 'showing'; track.addCue(cue);
@@ -89,7 +97,7 @@
     if (!track) { track = video.addTextTrack('subtitles', 'Dubly'); tracks.set(video, track); }
     track.mode = floating ? 'hidden' : 'showing';
   }
-  function stop() { session = ''; clearInterval(scan); observer?.disconnect(); document.removeEventListener('fullscreenchange', onFullscreenChange); detach(); }
+  function stop() { session = ''; clearInterval(scan); clearTimeout(attachTimer); attachTimer = 0; cachedCandidates = []; lastScan = -Infinity; observer?.disconnect(); document.removeEventListener('fullscreenchange', onFullscreenChange); detach(); }
   function describe() { const item=choose();return {hasVideo:item instanceof HTMLVideoElement,hasAudio:item instanceof HTMLAudioElement,hasMedia:!!item,playing:!!item&&!item.paused,area:item instanceof HTMLVideoElement?item.clientWidth*item.clientHeight:0,hasOverlay:!!overlay}; }
   chrome.runtime.onMessage.addListener((message, sender, reply) => {
     if (message.target !== 'subtitles') return;
@@ -97,7 +105,10 @@
       stop(); session = message.session; floating = !!message.floating; attach();
       document.addEventListener('fullscreenchange', onFullscreenChange);
       scan = setInterval(attach, 1000);
-      observer = new MutationObserver(() => { if (media?.isConnected === false || (!media && choose())) attach(); });
+      observer = new MutationObserver(() => {
+        if (media?.isConnected || attachTimer) return;
+        attachTimer = setTimeout(() => { attachTimer = 0; attach(); }, 1000);
+      });
       observer.observe(document.documentElement, {childList: true, subtree: true});
       reply(describe()); return;
     }

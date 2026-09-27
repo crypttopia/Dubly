@@ -12,7 +12,7 @@
     <img src="https://img.shields.io/badge/Manifest-V3-4285F4?logo=googlechrome&logoColor=white" alt="Manifest V3">
     <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-7C3AED" alt="MIT License"></a>
     <img src="https://img.shields.io/badge/Chrome-116%2B-34A853?logo=googlechrome&logoColor=white" alt="Chrome 116+">
-    <img src="https://img.shields.io/badge/Version-0.9.27-8B5CF6" alt="Dubly 0.9.27">
+    <img src="https://img.shields.io/badge/Version-0.9.28-8B5CF6" alt="Dubly 0.9.28">
   </p>
   <p>
     <a href="https://chromewebstore.google.com/detail/dubly/fendjlfddioginhjfehfchdmoddlbnlp"><strong>Install from the Chrome Web Store</strong></a>
@@ -244,14 +244,12 @@ No Dubly server is present in either processing path.
 
 ## Development, testing, and packaging
 
-The test suite requires Node.js. Browser tests additionally require Playwright and Chrome.
+Use Node.js 22 or newer. Browser tests use the pinned Playwright Chromium version. GitHub Actions runs the same suite on every push and pull request. Tests mock Google; they do not verify a paid live API session.
 
-```powershell
-$tests = @(Get-ChildItem -Filter '*.test.cjs'; Get-ChildItem -Filter '*.browser-test.cjs') | Sort-Object Name
-foreach ($test in $tests) {
-  node --test $test.FullName
-  if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-}
+```bash
+npm ci
+npx playwright install chromium
+npm test
 ```
 
 To build a Chrome Web Store package:
@@ -289,6 +287,8 @@ This roadmap describes possible directions rather than firm commitments or deliv
 - Expand and refine the multilingual experience
 
 ## Current limitations
+
+New installations default to a 30-minute translation session limit; existing preferences, including unlimited sessions, are preserved. Google usage may incur charges. The GitHub source version may be newer than the Web Store version while store review is pending.
 
 - Translation and transcription quality and availability depend on the model, region, internet connection, and the user's API quota.
 - Dubly does not provide lip synchronization or music and speech separation.

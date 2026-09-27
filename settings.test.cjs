@@ -17,12 +17,17 @@ async function openPopup(local = {}, session = {}, connectionResult = {state: 'i
     return message.type === 'testKey' ? connectionResult : message.type === 'voiceContext' ? ({supported:true,domain:'web.telegram.org',title:'Telegram'}) : message.type === 'voicePermissionFlow' ? local.microphoneGranted ? (session.voiceTarget={tabId:42,session:'voice'}, {enabled:true}) : ({opened:true}) : ({state:'idle'});
   };
   const requestSites=async request=>{messages.push({type:'permissionsRequest',...request});return local.siteAccessGranted!==false;};
-  const context = vm.createContext({document, matchMedia: () => ({matches: true, addEventListener() {}}), chrome: {storage: {local: area(local), session: area(session)}, permissions:{request:requestSites}, runtime: {getManifest: () => ({version: '0.9.27'}), sendMessage}}, setInterval() {}});
+  const context = vm.createContext({document, matchMedia: () => ({matches: true, addEventListener() {}}), chrome: {storage: {local: area(local), session: area(session)}, permissions:{request:requestSites}, runtime: {getManifest: () => ({version: '0.9.28'}), sendMessage}}, setInterval() {}});
   vm.runInContext(fs.readFileSync('i18n.js', 'utf8'), context);
   vm.runInContext(fs.readFileSync('popup.js', 'utf8'), context);
   await new Promise(resolve => setImmediate(resolve));
   return {elements, document, labels, context, themes, messages};
 }
+
+test('new sessions default to 30 minutes and preserve an explicit unlimited preference', async () => {
+  assert.equal((await openPopup({key:'key'})).elements.sessionLimit.value,'30');
+  assert.equal((await openPopup({key:'key',limitMinutes:0})).elements.sessionLimit.value,'0');
+});
 
 test('onboarding blocks the app until a Gemini key is verified and stored', async () => {
   const local = {};
@@ -63,7 +68,7 @@ test('legacy key migrates and language selection persists independently of dubbi
   assert.equal(popup.document.documentElement.lang, 'en');
   assert.equal(popup.document.documentElement.dir, 'ltr');
   assert.equal(popup.elements.language.value, 'fa');
-  assert.equal(popup.elements.footerVersion.textContent, 'Dubly · v0.9.27');
+  assert.equal(popup.elements.footerVersion.textContent, 'Dubly · v0.9.28');
   assert.ok(popup.labels.every(label => typeof label.textContent === 'string' && label.textContent.length));
   popup.elements.settingsToggle.listeners.click();
   assert.equal(popup.elements.settings.hidden, false);

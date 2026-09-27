@@ -1,12 +1,12 @@
-const {chromium}=require('C:/Users/ASUS/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright');
+const {chromium}=require('playwright');
 const assert=require('node:assert/strict');
 (async()=>{
- const browser=await chromium.launch({channel:'chrome',headless:true});
+ const browser=await chromium.launch({channel:process.env.DUBLY_BROWSER_CHANNEL || undefined,headless:true});
  try{
   const page=await browser.newPage({viewport:{width:1100,height:850}});
   const errors=[];page.on('pageerror',e=>errors.push(e.message));
   await page.addInitScript(()=>Object.defineProperty(navigator,'clipboard',{value:{writeText:async text=>{window.copiedText=text;}}}));
-  await page.goto('file:///E:/dubly/pages.html?page=donate');
+  await page.goto(require('node:url').pathToFileURL(require('node:path').join(__dirname,'pages.html')).href + '?page=donate');
   await page.locator('.donation-qr').waitFor();
   await page.evaluate(()=>document.fonts.ready);
   assert.equal(await page.locator('.donation-card').count(),1);
