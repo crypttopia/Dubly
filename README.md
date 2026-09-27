@@ -1,8 +1,10 @@
 # Dubly
 
+[نصب Dubly از Chrome Web Store | Install Dubly from the Chrome Web Store](https://chromewebstore.google.com/detail/dubly/fendjlfddioginhjfehfchdmoddlbnlp)
+
 ## فارسی
 
-Dubly یک افزونهٔ Chrome برای ترجمهٔ زندهٔ صدای تب، دوبله با هوش مصنوعی، زیرنویس شناور و تایپ صوتی است. افزونه با کلید API شخصی کاربر مستقیماً به سرویس‌های Google Gemini متصل می‌شود؛ برای استفاده از آن به حساب Dubly نیاز ندارید.
+Dubly یک پروژهٔ متن‌باز و افزونهٔ Chrome برای ترجمهٔ زندهٔ صدای تب، دوبله با هوش مصنوعی، زیرنویس شناور و تایپ صوتی است. افزونه با کلید API شخصی کاربر مستقیماً به سرویس‌های Google Gemini متصل می‌شود؛ برای استفاده از آن به حساب Dubly نیاز ندارید.
 
 نسخهٔ فعلی پکیج: **0.9.26**
 
@@ -133,13 +135,15 @@ Dubly یک افزونهٔ مستقل است و وابسته به Google LLC نی
 - پشتیبانی: `dubly.support@gmail.com`
 - شبکهٔ اجتماعی: [@crypttopia در X](https://x.com/crypttopia)
 
-در حال حاضر مجوز متن‌باز در این مخزن قرار نگرفته است.
+### مجوز
+
+Dubly یک نرم‌افزار متن‌باز است و با [مجوز MIT](LICENSE) منتشر می‌شود. می‌توانید مطابق شرایط این مجوز از کد استفاده کنید، آن را تغییر دهید و بازنشر کنید.
 
 ---
 
 ## English
 
-Dubly is a Chrome extension for live tab-audio translation, AI dubbing, floating captions, and voice typing. It connects directly to Google Gemini services with the user's own API key, and no Dubly account is required.
+Dubly is an open-source Chrome extension for live tab-audio translation, AI dubbing, floating captions, and voice typing. It connects directly to Google Gemini services with the user's own API key, and no Dubly account is required.
 
 Current package version: **0.9.26**
 
@@ -270,4 +274,6 @@ Dubly is an independent extension and is not affiliated with, endorsed by, or sp
 - Support: `dubly.support@gmail.com`
 - Social: [@crypttopia on X](https://x.com/crypttopia)
 
-No open-source license is currently included in this repository.
+### License
+
+Dubly is open-source software released under the [MIT License](LICENSE). You may use, modify, and redistribute the code under the terms of that license.
