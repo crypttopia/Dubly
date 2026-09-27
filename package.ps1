@@ -8,7 +8,7 @@ $files = @(
   'mic-permission.html', 'mic-permission.css', 'mic-permission.js',
   'pages.html', 'pages.css', 'pages.js', 'donation.css', 'site-config.js',
   'subtitles.js', 'media-sync.js', 'voice-typing.js', 'activity.js',
-  'assets/Vazirmatn.woff2', 'assets/OFL.txt', 'assets/wallet-qr.png', 'assets/voice-typing-logo.png', 'assets/translate.png', 'assets/setting.png'
+  'assets/Vazirmatn.woff2', 'assets/OFL.txt', 'assets/wallet-qr.png', 'assets/voice-typing-logo.webp', 'assets/translate.webp', 'assets/setting.webp'
 )
 
 Add-Type -AssemblyName System.IO.Compression
