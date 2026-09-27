@@ -95,6 +95,18 @@ test('floating subtitles are a real output mode and are passed to translation st
   assert.equal(start.floatingCaptions,true);
 });
 
+test('combined output keeps dubbed audio enabled and requests floating captions',async()=>{
+  const popup=await openPopup({key:'saved-key',originalVolume:20,dubVolume:85,outputMode:'both'});
+  assert.equal(popup.elements.outputMode.value,'both');
+  assert.equal(popup.elements.dubVolume.disabled,false);
+  await popup.elements.start.listeners.click();
+  const start=popup.messages.find(message=>message.type==='start');
+  assert.equal(start.mode,'both');
+  assert.equal(start.floatingCaptions,true);
+  assert.equal(start.originalVolume,20);
+  assert.equal(start.dubVolume,85);
+});
+
 test('voice typing shows the active website and opens its microphone permission flow', async () => {
   const popup = await openPopup({key:'saved-key'});
   await popup.elements.voiceTab.listeners.click();

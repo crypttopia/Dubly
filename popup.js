@@ -26,7 +26,7 @@ function render(result = current) {
   $('start').disabled = busy || active;
   $('stop').disabled = busy || !active;
   $('language').disabled = busy || active;
-  if (active && result.mode) $('outputMode').value = result.mode === 'subtitles' ? 'subtitles' : 'dubbing';
+  if (active && result.mode) $('outputMode').value = ['dubbing', 'subtitles', 'both'].includes(result.mode) ? result.mode : 'dubbing';
   $('outputMode').disabled = busy || active;
   document.querySelectorAll('[data-language]').forEach(button => {
     button.disabled = busy || active;
@@ -245,7 +245,7 @@ $('start').addEventListener('click', async () => {
   try {
     const mode=$('outputMode').value;
     await chrome.storage.local.set({language:$('language').value,outputMode:mode,...volumePreferences()});
-    const result = await send('start', {key:savedKey,language:$('language').value,mode,floatingCaptions:mode==='subtitles',limitMinutes:Number($('sessionLimit').value),...volumes()});
+    const result = await send('start', {key:savedKey,language:$('language').value,mode,floatingCaptions:mode!=='dubbing',limitMinutes:Number($('sessionLimit').value),...volumes()});
     busy = false; render(result);
   } catch { busy = false; localError = 'startError'; render({state: 'error'}); }
 });
@@ -264,7 +264,7 @@ async function init() {
   uiLanguage = preferences.uiLanguage === 'en' ? 'en' : 'fa';
   $('uiLanguage').value = uiLanguage;
   $('language').value = preferences.language || 'fa';
-  $('outputMode').value = preferences.outputMode === 'subtitles' || preferences.floatingCaptions === true ? 'subtitles' : 'dubbing';
+  $('outputMode').value = ['subtitles','both'].includes(preferences.outputMode) ? preferences.outputMode : preferences.floatingCaptions === true ? 'subtitles' : 'dubbing';
   $('originalVolume').value = $('outputMode').value === 'subtitles' ? preferences.subtitleVolume ?? 100 : preferences.originalVolume ?? (preferences.original ? 20 : 0);
   $('dubVolume').value = preferences.dubVolume ?? 100;
   const version = chrome.runtime.getManifest().version;

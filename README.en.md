@@ -51,9 +51,9 @@ Dubly captures audio from the selected tab while it plays and returns live speec
 
 Because Dubly uses the tab's audio as its input, it can be used with live streams, webinars, live podcasts, live interviews, and event broadcasts. The source does not need to be a prerecorded file or video.
 
-### Support for 72 languages
+### Support for 78 languages
 
-Users can select a translation and dubbing target from 72 supported languages and follow audio content in the language they need.
+Users can select a translation and dubbing target from the 78 languages listed in the [official Gemini Live Translation documentation](https://ai.google.dev/gemini-api/docs/live-api/live-translate#supported-languages).
 
 ### Floating Captions
 
