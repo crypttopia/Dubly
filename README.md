@@ -1,220 +1,250 @@
-# Dubly
-
-[نصب Dubly از Chrome Web Store | Install Dubly from the Chrome Web Store](https://chromewebstore.google.com/detail/dubly/fendjlfddioginhjfehfchdmoddlbnlp)
-
-## فارسی
-
-Dubly یک پروژهٔ متن‌باز و افزونهٔ Chrome برای ترجمهٔ زندهٔ صدای تب، دوبله با هوش مصنوعی، زیرنویس شناور و تایپ صوتی است. افزونه با کلید API شخصی کاربر مستقیماً به سرویس‌های Google Gemini متصل می‌شود؛ برای استفاده از آن به حساب Dubly نیاز ندارید.
-
-نسخهٔ فعلی پکیج: **0.9.26**
-
-### قابلیت‌ها
-
-- **دوبلهٔ زنده با هوش مصنوعی:** صدای ویدیو، پخش‌کنندهٔ صوتی یا محتوای زندهٔ تب فعال را ترجمه و دوبله می‌کند.
-- **پشتیبانی از ۷۲ زبان:** زبان مقصد دوبله و ترجمه را از میان ۷۲ زبان پشتیبانی‌شده انتخاب کنید.
-- **زیرنویس شناور:** ترجمه را روی صفحه و روی ویدیو، از جمله در حالت تمام‌صفحه، نمایش می‌دهد. زیرنویس شناور یکی از قابلیت‌های اصلی و پایدار Dubly است.
-- **کنترل جداگانهٔ صدا:** بلندی صدای اصلی تب و صدای دوبله‌شده را مستقل از هم تنظیم کنید.
-- **تایپ صوتی (Speech-to-Text):** صحبت خود را به متن تبدیل و در فیلدهای قابل ویرایش سایت‌ها درج کنید یا متن را کپی کنید.
-- **کنترل شناور تایپ صوتی:** کنترل کوچک و قابل‌جابه‌جایی را روی صفحه فعال، کوچک، بزرگ یا بسته کنید و ضبط، درج، کپی و حذف متن را از همان‌جا انجام دهید.
-- رابط کاربری فارسی و انگلیسی، حالت روشن، تاریک و هماهنگ با سیستم.
-- آمار محلی فعالیت برای جلسه‌های دوبله.
-- راه‌اندازی سادهٔ کلید API در اولین اجرا.
-
-### کلید API و حریم خصوصی
-
-Dubly سرور واسطی برای ترجمه، رونویسی یا جمع‌آوری آمار ندارد.
-
-- صدای تب فقط پس از شروع ترجمه توسط کاربر، مستقیماً از افزونه به سرویس ترجمهٔ Google Gemini ارسال می‌شود.
-- میکروفن فقط وقتی فعال می‌شود که کاربر ضبط تایپ صوتی را شروع کند. صدای میکروفن برای تبدیل گفتار به متن مستقیماً به سرویس رونویسی Google Gemini ارسال می‌شود.
-- کلید API شخصی کاربر برای احراز اتصال‌های مستقیم به Google استفاده می‌شود.
-- صدای تب، صدای میکروفن، متن تایپ صوتی و کلید API از سرورهای Dubly عبور نمی‌کنند و روی سرورهای Dubly ذخیره نمی‌شوند.
-- کلید API و تنظیمات در حافظهٔ محلی افزونه روی دستگاه کاربر ذخیره می‌شوند و با حساب Chrome همگام نمی‌شوند.
-- دسترسی صفحات وب برای تایپ صوتی فقط پس از فعال‌سازی این قابلیت درخواست می‌شود و برای نمایش کنترل شناور و درج متن در `input`، `textarea` یا `contenteditable` به کار می‌رود. Dubly از این دسترسی برای پایش تاریخچهٔ مرور یا فعالیت‌های نامرتبط استفاده نمی‌کند.
-- برای استفاده از Dubly نیازی به ساخت حساب Dubly نیست.
-
-سیاست کامل حریم خصوصی در [Dubly Privacy Policy](https://sites.google.com/view/dubly-privacy-policy) در دسترس است.
-
-### پیش‌نیازها
-
-- Google Chrome نسخهٔ 116 یا جدیدتر.
-- یک کلید Google Gemini API از [Google AI Studio](https://aistudio.google.com/apikey).
-- دسترسی حساب و منطقهٔ کاربر به مدل‌های Gemini مورد استفادهٔ افزونه و سهمیهٔ کافی.
-
-### نصب به‌صورت Unpacked Extension
-
-1. مخزن را دریافت کنید:
-
-   ```powershell
-   git clone https://github.com/crypttopia/Dubly.git
-   cd Dubly
-   ```
-
-2. در Chrome نشانی `chrome://extensions` را باز کنید.
-3. گزینهٔ **Developer mode** را فعال کنید.
-4. روی **Load unpacked** بزنید و پوشهٔ اصلی مخزن Dubly را انتخاب کنید.
-5. افزونه را از نوار ابزار Chrome باز کنید.
-
-### وارد کردن Google API key
-
-1. در [Google AI Studio](https://aistudio.google.com/apikey) برای حساب خود یک کلید API بسازید.
-2. در اولین اجرای Dubly، کلید را در صفحهٔ راه‌اندازی Paste کنید. اگر قبلاً کلیدی ذخیره کرده‌اید، می‌توانید آن را از بخش تنظیمات تغییر دهید.
-3. روی **Save & Continue** بزنید تا کلید بررسی و روی دستگاه ذخیره شود.
-4. تب دارای ویدیو یا صدا را باز کنید، زبان ترجمه را انتخاب کنید و ترجمه را شروع کنید.
-
-کلید API را داخل کد یا Git commit نکنید. Dubly کلید را هنگام اجرا در حافظهٔ محلی Chrome نگه می‌دارد.
-
-### ساخت فایل ZIP برای Chrome Web Store
-
-اسکریپت بسته‌بندی را در PowerShell اجرا کنید:
-
-```powershell
-./package.ps1
-```
-
-اسکریپت نسخه را از `manifest.json` می‌خواند و فایل `Dubly-<version>.zip` را می‌سازد. فایل‌های ZIP تولیدشده عمداً در Git نادیده گرفته می‌شوند.
-
-### اجرای تست‌ها
-
-تست‌ها به Node.js نیاز دارند. تست‌های مرورگر علاوه بر آن به Playwright و Chrome نیاز دارند.
-
-```powershell
-$tests = @(Get-ChildItem -Filter '*.test.cjs'; Get-ChildItem -Filter '*.browser-test.cjs') | Sort-Object Name
-foreach ($test in $tests) {
-  node --test $test.FullName
-  if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-}
-```
-
-### دسترسی‌های Chrome
-
-| دسترسی | دلیل استفاده |
-| --- | --- |
-| `activeTab` | اجرای قابلیتی که کاربر روی تب فعال درخواست کرده است. |
-| `tabCapture` | دریافت صدای تب انتخاب‌شده هنگام ترجمه و دوبله. |
-| `offscreen` | پردازش صدای تب یا میکروفن و پخش صدای دوبله‌شده وقتی پنجرهٔ افزونه بسته است. |
-| `storage` | ذخیرهٔ محلی کلید API، تنظیمات و فعالیت دوبله روی دستگاه. |
-| `scripting` | افزودن زیرنویس شناور، کنترل تایپ صوتی و هماهنگ‌سازی اولیهٔ دوبله به تب انتخاب‌شده. |
-| دسترسی اختیاری `http://*/*` و `https://*/*` | نگه‌داشتن تایپ صوتی در همان تب هنگام پیمایش عادی وب و درج متن در فیلد انتخاب‌شده. |
-| دسترسی میکروفن | دریافت صدای میکروفن فقط در زمان ضبط تایپ صوتی که کاربر آغاز کرده است. |
-
-سیاست شبکه در manifest، اتصال افزونه را به endpoint سرویس Gemini در `generativelanguage.googleapis.com` محدود می‌کند.
-
-### ساختار پروژه
-
-- `manifest.json` — پیکربندی Chrome Manifest V3.
-- `background.js` — سرویس‌ورکر و هماهنگی قابلیت‌ها.
-- `offscreen.js` — ترجمهٔ صدای تب، پخش دوبله و رونویسی میکروفن.
-- `popup.html`، `popup.css` و `popup.js` — رابط اصلی افزونه.
-- `voice-typing.js` — کنترل شناور تایپ صوتی و درج محلی متن.
-- `subtitles.js` — نمایش زیرنویس شناور و تمام‌صفحه.
-- `media-sync.js` — مکث اولیهٔ پخش برای کاهش اختلاف زمانی دوبله.
-- `pages.html`، `pages.css` و `pages.js` — حریم خصوصی، شرایط استفاده، راهنما، پشتیبانی، حمایت مالی و فعالیت.
-- `publishing/` — نسخه‌های مناسب انتشار سیاست حریم خصوصی و شرایط استفاده.
-- `*.test.cjs` و `*.browser-test.cjs` — تست‌های خودکار.
-- `package.ps1` — اسکریپت بسته‌بندی افزونه.
-
-### مشارکت در پروژه
-
-1. مخزن را Fork و یک branch برای تغییر خود ایجاد کنید.
-2. تغییر را محدود، روشن و هماهنگ با طراحی و معماری فعلی Dubly نگه دارید.
-3. تست‌های مرتبط را اضافه یا به‌روزرسانی کنید و مجموعهٔ تست‌ها را اجرا کنید.
-4. مطمئن شوید کلید API، اطلاعات شخصی، فایل ZIP، خروجی ساخت یا فایل موقت commit نشده است.
-5. Pull Request بسازید و مشکل، راه‌حل و روش بررسی تغییر را توضیح دهید.
-
-### محدودیت‌های فعلی
-
-- کیفیت ترجمه و رونویسی به دسترسی مدل‌های Google، اینترنت و سهمیهٔ API کاربر وابسته است.
-- Dubly هماهنگ‌سازی حرکت لب یا جداسازی موسیقی از گفتار انجام نمی‌دهد.
-- بعضی پخش‌کننده‌های محافظت‌شده، صفحات داخلی Chrome و Chrome Web Store قابل دریافت یا اسکریپت‌گذاری نیستند.
-- هماهنگ‌سازی اولیهٔ دوبله فقط وقتی کار می‌کند که صفحه یک عنصر صوتی یا ویدیویی HTML قابل‌کنترل داشته باشد.
-
-### استقلال و پشتیبانی
-
-Dubly یک افزونهٔ مستقل است و وابسته به Google LLC نیست و مورد تأیید یا حمایت آن قرار ندارد.
-
-- پشتیبانی: `dubly.support@gmail.com`
-- شبکهٔ اجتماعی: [@crypttopia در X](https://x.com/crypttopia)
-
-### مجوز
-
-Dubly یک نرم‌افزار متن‌باز است و با [مجوز MIT](LICENSE) منتشر می‌شود. می‌توانید مطابق شرایط این مجوز از کد استفاده کنید، آن را تغییر دهید و بازنشر کنید.
+<div align="center" dir="rtl">
+  <img src="logo.png" alt="لوگوی Dubly" width="112">
+  <h1>Dubly</h1>
+  <h3>هر صدایی در مرورگر، به زبان شما.</h3>
+  <p>افزونهٔ متن‌باز Chrome برای دوبلهٔ زنده، ترجمهٔ صوتی، زیرنویس شناور و تایپ صوتی با API Key شخصی کاربر.</p>
+  <p>
+    <a href="README.md">🇮🇷 فارسی</a>
+    &nbsp;•&nbsp;
+    <a href="README.en.md">🇬🇧 English</a>
+  </p>
+  <p>
+    <img src="https://img.shields.io/badge/Manifest-V3-4285F4?logo=googlechrome&logoColor=white" alt="Manifest V3">
+    <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-7C3AED" alt="MIT License"></a>
+    <img src="https://img.shields.io/badge/Chrome-116%2B-34A853?logo=googlechrome&logoColor=white" alt="Chrome 116+">
+    <img src="https://img.shields.io/badge/Version-0.9.26-8B5CF6" alt="Dubly 0.9.26">
+  </p>
+  <p>
+    <a href="https://chromewebstore.google.com/detail/dubly/fendjlfddioginhjfehfchdmoddlbnlp"><strong>نصب از Chrome Web Store</strong></a>
+  </p>
+</div>
 
 ---
 
-## English
+## Dubly چیست؟
 
-Dubly is an open-source Chrome extension for live tab-audio translation, AI dubbing, floating captions, and voice typing. It connects directly to Google Gemini services with the user's own API key, and no Dubly account is required.
+Dubly صدای در حال پخش از تب انتخاب‌شدهٔ Chrome را دریافت می‌کند و ترجمه را به‌صورت صدای دوبله‌شده یا زیرنویس شناور در همان تجربهٔ مرور نمایش می‌دهد. برای استفاده لازم نیست فایل صوتی یا ویدیویی را دانلود کنید، آن را در سرویس دیگری آپلود کنید یا از صفحهٔ فعلی خارج شوید.
 
-Current package version: **0.9.26**
+Dubly به پلتفرم خاصی مانند YouTube محدود نیست. این افزونه برای هر تب قابل‌دسترسی طراحی شده است که Chrome اجازهٔ دریافت صدای آن را بدهد؛ بنابراین وجود ویدیو الزامی نیست و پخش‌کننده‌های صوتی نیز می‌توانند منبع ترجمه باشند.
 
-### Features
+نمونه‌های کاربرد شامل YouTube، X / Twitter، Instagram، پخش زنده، وبینار، دورهٔ آنلاین، پادکست، مصاحبه، پخش‌کنندهٔ صوتی و وب‌سایت‌های خبری است. صفحات داخلی Chrome، Chrome Web Store و بعضی محتواهای محافظت‌شده ممکن است به‌دلیل محدودیت‌های امنیتی مرورگر قابل Capture یا Script نباشند.
 
-- **Live AI dubbing:** Translates and dubs video, audio players, or live content playing in the active tab.
-- **Support for 72 languages:** Choose a dubbing and translation target from 72 supported languages.
-- **Floating Captions:** Displays translated text over the page and video, including fullscreen playback. Floating Captions is a core, stable Dubly feature.
-- **Independent volume controls:** Adjust the original tab audio and dubbed audio separately.
-- **Voice Typing (Speech-to-Text):** Convert speech to text, insert it into editable fields on websites, or copy it.
-- **Floating Voice Typing control:** Move, minimize, expand, or close the compact page control and use it to record, insert, copy, or delete text.
-- Persian and English interfaces with light, dark, and system appearance modes.
-- Local activity statistics for dubbing sessions.
-- A simple first-run API key setup flow.
+## حالت‌های استفاده
 
-### API key and privacy
+| حالت | تجربهٔ کاربر |
+| --- | --- |
+| **فقط دوبله** | ترجمه به‌صورت صدای زنده پخش می‌شود و زیرنویس شناور نمایش داده نمی‌شود. |
+| **فقط زیرنویس** | ترجمه به‌شکل Floating Captions روی صفحه نمایش داده می‌شود و صدای دوبله قابل کاهش یا قطع است. |
+| **دوبله و زیرنویس** | صدای ترجمه‌شده همراه با زیرنویس ترجمه‌شده ارائه می‌شود. |
 
-Dubly has no translation, transcription, or analytics relay server.
+### صدای اصلی و صدای دوبله
 
-- Tab audio is sent directly from the extension to the Google Gemini translation service only after the user starts translation.
-- The microphone activates only when the user starts a Voice Typing recording. Microphone audio is sent directly to the Google Gemini transcription service for speech-to-text processing.
-- The user's own API key authenticates these direct Google connections.
-- Tab audio, microphone audio, Voice Typing text, and the API key do not pass through or get stored on Dubly servers.
-- The API key and preferences are stored in the extension's local storage on the user's device and are not synced through the Chrome account.
-- Website access for Voice Typing is requested only after the user enables the feature. It is used to display the floating control and insert text into an `input`, `textarea`, or `contenteditable` field. Dubly does not use this access to monitor browsing history or unrelated activity.
-- No Dubly account is required.
+Dubly کنترل مستقلی برای صدای اصلی تب و صدای دوبله‌شده فراهم می‌کند. کاربر می‌تواند صدای اصلی را در پس‌زمینه حفظ کند، آن را کاهش دهد یا کاملاً قطع کند و حجم صدای دوبله را جداگانه تنظیم کند.
 
-Read the complete [Dubly Privacy Policy](https://sites.google.com/view/dubly-privacy-policy).
+## قابلیت‌های اصلی
 
-### Requirements
+### دوبلهٔ زنده با هوش مصنوعی
 
-- Google Chrome 116 or newer.
-- A Google Gemini API key from [Google AI Studio](https://aistudio.google.com/apikey).
-- Access to the Gemini models used by the extension in the user's account and region, with sufficient quota.
+Dubly صدای تب انتخاب‌شده را هنگام پخش دریافت می‌کند و ترجمهٔ صوتی را به‌صورت زنده بازمی‌گرداند. محتوا همان‌جایی که در مرورگر پخش می‌شود ترجمه و دوبله می‌شود و نیازی به دانلود یا بارگذاری فایل نیست.
 
-### Install as an Unpacked Extension
+### مناسب برای محتوای زنده
 
-1. Clone the repository:
+چون ورودی Dubly صدای خود تب است، افزونه برای Live Stream، Webinar، Live Podcast، Live Interview و پخش زندهٔ رویداد نیز کاربرد دارد. منبع لازم نیست یک فایل یا ویدیوی از پیش آماده باشد.
 
-   ```powershell
-   git clone https://github.com/crypttopia/Dubly.git
-   cd Dubly
-   ```
+### پشتیبانی از ۷۲ زبان
 
-2. Open `chrome://extensions` in Chrome.
-3. Enable **Developer mode**.
-4. Select **Load unpacked** and choose the root Dubly repository directory.
-5. Open the extension from the Chrome toolbar.
+کاربر می‌تواند زبان مقصد ترجمه و دوبله را از میان ۷۲ زبان پشتیبانی‌شده انتخاب کند و محتوای صوتی را به زبان موردنیاز خود دنبال کند.
 
-### Enter a Google API key
+### زیرنویس شناور
 
-1. Create an API key for your account in [Google AI Studio](https://aistudio.google.com/apikey).
-2. On the first Dubly launch, paste the key into the setup screen. If a key is already saved, you can replace it in Settings.
-3. Select **Save & Continue** so Dubly can verify the key and store it on your device.
-4. Open a tab playing video or audio, choose the translation language, and start translation.
+Floating Captions یکی از قابلیت‌های اصلی و پایدار Dubly است. ترجمه روی صفحه و در پخش تمام‌صفحه نمایش داده می‌شود و می‌توان از آن به‌تنهایی یا همراه با دوبله استفاده کرد.
 
-Never commit an API key to source control. Dubly stores it at runtime in Chrome's local extension storage.
+### کنترل مستقل صدا
 
-### Build a Chrome Web Store ZIP
+Original Audio و Dubbed Audio کنترل‌های جداگانه دارند تا تعادل شنیداری برای هر محتوا و هر کاربر قابل تنظیم باشد.
 
-Run the packaging script from PowerShell:
+### Voice Typing / تبدیل گفتار به متن
 
-```powershell
-./package.ps1
+Dubly علاوه بر ترجمهٔ صدای تب، گفتار کاربر را از طریق میکروفن به متن تبدیل می‌کند. ضبط فقط با اقدام کاربر آغاز می‌شود.
+
+### کنترل شناور Voice Typing
+
+کنترل شناور و قابل‌جابه‌جایی Voice Typing روی صفحات وب امکان شروع و توقف ضبط، مشاهدهٔ نتیجه، کپی، حذف و درج متن را فراهم می‌کند. این قابلیت با فیلدهای متنی `input`، `textarea` و عناصر `contenteditable` سازگار است و در حالت کوچک‌شده نیز کنترل‌های اصلی را در دسترس نگه می‌دارد.
+
+### API Key شخصی؛ مدل BYOK
+
+Dubly بر پایهٔ Bring Your Own Key کار می‌کند. کاربر Google API Key خود را وارد می‌کند و افزونه با همان کلید مستقیماً به سرویس Google Gemini متصل می‌شود. مصرف و سهمیهٔ API به حساب Google کاربر وابسته است.
+
+### بدون حساب Dubly
+
+برای استفاده از افزونه نیازی به Sign up، Login یا ساخت حساب در Dubly نیست.
+
+### ذخیرهٔ محلی
+
+API Key، تنظیمات، ترجیحات و آمار فعالیت Dubly در حافظهٔ محلی افزونه روی دستگاه کاربر نگه‌داری می‌شوند و با حساب Chrome همگام نمی‌شوند.
+
+### رابط فارسی و انگلیسی
+
+رابط کاربری و کنترل شناور Voice Typing از فارسی و انگلیسی پشتیبانی می‌کنند.
+
+### تم روشن، تاریک و سیستم
+
+کاربر می‌تواند بین Light Mode، Dark Mode و System Theme انتخاب کند.
+
+### ادامهٔ Session پس از بسته‌شدن Popup
+
+پردازش صوت با Chrome Offscreen Document انجام می‌شود؛ بنابراین بسته‌شدن Popup به‌تنهایی Session فعال را متوقف نمی‌کند. Session تا توقف کاربر، رسیدن به محدودیت زمانی انتخاب‌شده یا پایان منبع Capture ادامه پیدا می‌کند.
+
+## چرا Dubly؟
+
+هدف Dubly کم‌کردن فاصله میان کاربر و محتوای صوتی خارجی است. ترجمه، دوبله و زیرنویس در کنار همان محتوایی ارائه می‌شوند که در مرورگر مصرف می‌کنید؛ بدون زنجیره‌ای از دانلود فایل، بارگذاری در ابزار دیگر و انتظار برای پردازش کامل.
+
+- بدون نیاز به آپلود فایل
+- بدون خروج از صفحهٔ محتوا
+- مناسب برای محتوای زنده و صوتی بدون ویدیو
+- مستقل از یک وب‌سایت خاص
+- انتخاب میان دوبله، زیرنویس یا استفادهٔ هم‌زمان
+- کنترل جداگانهٔ صدای اصلی و صدای دوبله
+- اتصال مستقیم با API Key شخصی کاربر
+
+## Dubly کجا به کار می‌آید؟
+
+- تماشای ویدیوی خارجی در YouTube
+- دنبال‌کردن Live Stream یا لایو X
+- گوش‌دادن به پادکست یا مصاحبهٔ خارجی
+- شرکت در Webinar و دورهٔ آنلاین
+- دنبال‌کردن پخش زندهٔ رویدادها
+- ترجمهٔ یک Audio Player یا صفحهٔ صوتی
+- مشاهدهٔ ترجمه فقط به‌صورت زیرنویس
+- شنیدن دوبله همراه با زیرنویس
+- نوشتن متن در صفحات وب با Voice Typing
+
+## نصب
+
+### نصب از Chrome Web Store
+
+روش پیشنهادی برای کاربران، نصب مستقیم نسخهٔ منتشرشده است:
+
+**[نصب Dubly از Chrome Web Store](https://chromewebstore.google.com/detail/dubly/fendjlfddioginhjfehfchdmoddlbnlp)**
+
+### نصب دستی
+
+در حال حاضر GitHub Release جداگانه‌ای منتشر نشده است. برای نصب سورس فعلی:
+
+1. از منوی **Code** در GitHub گزینهٔ **Download ZIP** را انتخاب کنید.
+2. فایل ZIP را Extract کنید.
+3. `chrome://extensions` را در Chrome باز کنید.
+4. **Developer mode** را فعال کنید.
+5. **Load unpacked** را انتخاب و پوشهٔ استخراج‌شدهٔ پروژه را باز کنید.
+
+### نصب برای توسعه‌دهندگان
+
+این روش برای بررسی سورس، توسعه یا مشارکت در پروژه مناسب است:
+
+```bash
+git clone https://github.com/crypttopia/Dubly.git
+cd Dubly
 ```
 
-The script reads the version from `manifest.json` and creates `Dubly-<version>.zip`. Generated ZIP files are intentionally ignored by Git.
+سپس از `chrome://extensions` و گزینهٔ **Load unpacked** پوشهٔ مخزن را انتخاب کنید.
 
-### Run tests
+## شروع سریع
 
-The test suite requires Node.js. Browser tests additionally require Playwright and Chrome.
+1. Dubly را نصب کنید.
+2. از [Google AI Studio](https://aistudio.google.com/apikey) یک Google API Key بگیرید.
+3. در اولین اجرا کلید را Paste و **Save & Continue** را انتخاب کنید.
+4. یک تب دارای صدای در حال پخش باز کنید.
+5. زبان مقصد را انتخاب کنید.
+6. حالت دوبله، زیرنویس یا هر دو را انتخاب کنید.
+7. ترجمه را شروع کنید.
+
+برای Voice Typing، تب مربوط را در Dubly باز کنید، قابلیت را فعال کنید، یک‌بار دسترسی میکروفن بدهید و ضبط را از کنترل شناور آغاز کنید.
+
+## حریم خصوصی
+
+Dubly با رویکرد **Local-first** طراحی شده است و سرور واسطی برای دوبله، ترجمه یا Speech-to-Text ندارد.
+
+- Google API Key در حافظهٔ محلی افزونه روی دستگاه کاربر ذخیره می‌شود.
+- صدای تب فقط پس از شروع Session توسط کاربر پردازش می‌شود.
+- میکروفن فقط هنگام ضبط Voice Typing فعال است.
+- صدای تب، صدای میکروفن، Transcript و API Key از سرورهای Dubly عبور نمی‌کنند و روی آن‌ها ذخیره نمی‌شوند.
+- ارتباط پردازشی مستقیماً میان افزونه و سرویس‌های Google با کلید کاربر برقرار می‌شود.
+- دسترسی اختیاری صفحات وب برای نمایش کنترل شناور و درج متن استفاده می‌شود، نه پایش تاریخچهٔ مرور.
+- برای استفاده از Dubly حساب کاربری Dubly لازم نیست.
+
+جزئیات کامل در [سیاست حریم خصوصی Dubly](https://sites.google.com/view/dubly-privacy-policy) در دسترس است.
+
+## دسترسی‌های Chrome
+
+| دسترسی | دلیل استفاده |
+| --- | --- |
+| `activeTab` | اجرای قابلیت انتخاب‌شده روی تب فعال، پس از اقدام کاربر. |
+| `tabCapture` | دریافت صدای تب انتخاب‌شده برای ترجمه و دوبله. |
+| `offscreen` | ادامهٔ پردازش صوت و پخش دوبله وقتی Popup بسته است. |
+| `storage` | ذخیرهٔ محلی API Key، تنظیمات و آمار فعالیت. |
+| `scripting` | افزودن زیرنویس، کنترل Voice Typing و هماهنگ‌سازی اولیه به صفحهٔ انتخاب‌شده. |
+| دسترسی اختیاری `http://*/*` و `https://*/*` | نمایش و حفظ کنترل Voice Typing در تب فعال و درج متن در فیلد انتخاب‌شده. |
+| دسترسی میکروفن | دریافت صدا فقط هنگام ضبط Voice Typing که کاربر آغاز کرده است. |
+
+سیاست امنیتی Manifest اتصال شبکهٔ افزونه را به endpoint سرویس Gemini در `generativelanguage.googleapis.com` محدود می‌کند.
+
+## Dubly چگونه کار می‌کند؟
+
+### مسیر ترجمه و دوبله
+
+```text
+تب دارای صدا
+     │
+     ▼
+Chrome Tab Capture
+     │
+     ▼
+   Dubly
+     │
+     │  API Key شخصی کاربر
+     ▼
+Google Gemini API
+     │
+     ├──► صدای دوبله‌شده
+     └──► زیرنویس شناور
+```
+
+### مسیر Voice Typing
+
+```text
+Microphone
+    │
+    ▼
+  Dubly
+    │
+    │  API Key شخصی کاربر
+    ▼
+Google Gemini Transcribe Live
+    │
+    ▼
+Text / Input Field
+```
+
+هیچ Dubly Server در این مسیر پردازش قرار ندارد.
+
+## ساختار پروژه
+
+| فایل | مسئولیت |
+| --- | --- |
+| `manifest.json` | تنظیمات Manifest V3، دسترسی‌ها و سیاست شبکه |
+| `background.js` | Service Worker و هماهنگی قابلیت‌ها و Sessionها |
+| `offscreen.js` | پردازش صدای تب، پخش دوبله و رونویسی میکروفن |
+| `popup.html`, `popup.css`, `popup.js` | رابط اصلی افزونه و رفتار آن |
+| `voice-typing.js` | کنترل شناور Voice Typing و درج محلی متن |
+| `subtitles.js` | نمایش زیرنویس شناور و تمام‌صفحه |
+| `media-sync.js` | مکث اولیه برای کاهش اختلاف زمانی دوبله |
+| `pages.html`, `pages.css`, `pages.js` | حریم خصوصی، راهنما، پشتیبانی، حمایت و فعالیت |
+| `*.test.cjs`, `*.browser-test.cjs` | تست‌های خودکار Node و مرورگر |
+| `package.ps1` | ساخت بستهٔ ZIP افزونه |
+
+## توسعه، تست و بسته‌بندی
+
+تست‌ها به Node.js نیاز دارند و تست‌های مرورگر علاوه بر آن به Playwright و Chrome وابسته‌اند.
 
 ```powershell
 $tests = @(Get-ChildItem -Filter '*.test.cjs'; Get-ChildItem -Filter '*.browser-test.cjs') | Sort-Object Name
@@ -224,56 +254,61 @@ foreach ($test in $tests) {
 }
 ```
 
-### Chrome permissions
+برای ساخت بستهٔ Chrome Web Store:
 
-| Permission | Purpose |
-| --- | --- |
-| `activeTab` | Runs a user-requested feature on the active tab. |
-| `tabCapture` | Captures audio from the selected tab during translation and dubbing. |
-| `offscreen` | Processes tab or microphone audio and plays dubbed audio while the popup is closed. |
-| `storage` | Stores the API key, preferences, and local dubbing activity on the device. |
-| `scripting` | Adds Floating Captions, the Voice Typing control, and initial dubbing synchronization to the selected tab. |
-| Optional `http://*/*` and `https://*/*` access | Keeps Voice Typing available in the same tab during normal web navigation and inserts text into the selected field. |
-| Microphone access | Captures microphone audio only while the user is recording with Voice Typing. |
+```powershell
+./package.ps1
+```
 
-The manifest network policy limits the extension's connection to the Gemini service endpoint at `generativelanguage.googleapis.com`.
+نسخه از `manifest.json` خوانده و فایل `Dubly-<version>.zip` ساخته می‌شود.
 
-### Project layout
+## مشارکت در پروژه
 
-- `manifest.json` — Chrome Manifest V3 configuration.
-- `background.js` — service worker and feature orchestration.
-- `offscreen.js` — tab-audio translation, dubbing playback, and microphone transcription.
-- `popup.html`, `popup.css`, and `popup.js` — extension interface.
-- `voice-typing.js` — floating Voice Typing control and local text insertion.
-- `subtitles.js` — floating and fullscreen caption display.
-- `media-sync.js` — initial playback hold used to reduce dubbing delay.
-- `pages.html`, `pages.css`, and `pages.js` — privacy, terms, help, support, donation, and activity pages.
-- `publishing/` — public-site copies of the privacy policy and terms.
-- `*.test.cjs` and `*.browser-test.cjs` — automated tests.
-- `package.ps1` — extension packaging script.
+Dubly یک پروژهٔ متن‌باز است و Issueها و Pull Requestهای دقیق و قابل‌بررسی از مشارکت‌کنندگان پذیرفته می‌شوند.
 
-### Contributing
+1. مخزن را Fork کنید.
+2. یک branch مشخص بسازید: `git checkout -b feature/short-name`
+3. تغییر را انجام دهید و در صورت نیاز تست اضافه یا به‌روزرسانی کنید.
+4. مجموعهٔ تست‌ها را اجرا کنید.
+5. تغییر را commit کنید: `git commit -m "feat: describe the change"`
+6. branch را push کنید: `git push origin feature/short-name`
+7. یک Pull Request با توضیح مسئله، راه‌حل و روش بررسی بسازید.
 
-1. Fork the repository and create a branch for your change.
-2. Keep the change focused, clear, and consistent with Dubly's current design and architecture.
-3. Add or update relevant tests and run the test suite.
-4. Confirm that no API keys, personal data, ZIP packages, build output, or temporary files are committed.
-5. Open a pull request that explains the problem, the solution, and how the change was verified.
+کلید API، دادهٔ شخصی، فایل ZIP، خروجی Build و فایل موقت را commit نکنید.
 
-### Current limitations
+## مسیرهای احتمالی توسعه
 
-- Translation and transcription quality depend on Google model availability, the internet connection, and the user's API quota.
-- Dubly does not provide lip synchronization or music and speech separation.
-- Some protected players, Chrome internal pages, and the Chrome Web Store cannot be captured or scripted.
-- Initial dubbing synchronization works only when the page exposes a controllable HTML audio or video element.
+Roadmap زیر جهت‌های احتمالی توسعه را نشان می‌دهد و تعهد زمانی یا وعدهٔ قطعی نیست:
 
-### Independence and support
+- کاهش latency دوبلهٔ زنده
+- بهبود کیفیت و پایداری Voice Typing
+- بهبود خوانایی و هماهنگی Floating Captions
+- افزایش سازگاری با سایت‌ها و پخش‌کننده‌های بیشتر
+- بهبود کنترل و هماهنگی صدا
+- ساده‌ترکردن UI و تجربهٔ شروع کار
+- گسترش و بهبود تجربهٔ چندزبانه
 
-Dubly is an independent extension and is not affiliated with, endorsed by, or sponsored by Google LLC.
+## محدودیت‌های فعلی
 
-- Support: `dubly.support@gmail.com`
-- Social: [@crypttopia on X](https://x.com/crypttopia)
+- کیفیت و دسترسی ترجمه و رونویسی به مدل، منطقه، اینترنت و سهمیهٔ API کاربر وابسته است.
+- Dubly هماهنگ‌سازی حرکت لب یا جداسازی موسیقی از گفتار انجام نمی‌دهد.
+- صفحات داخلی Chrome، Chrome Web Store و بعضی پخش‌کننده‌های محافظت‌شده قابل Capture یا Script نیستند.
+- هماهنگ‌سازی اولیهٔ دوبله به وجود عنصر HTML صوتی یا ویدیویی قابل‌کنترل وابسته است.
 
-### License
+## مجوز
 
-Dubly is open-source software released under the [MIT License](LICENSE). You may use, modify, and redistribute the code under the terms of that license.
+**Dubly تحت [MIT License](LICENSE) منتشر شده است.** این مجوز اجازهٔ استفاده، تغییر، توزیع و استفاده در پروژه‌های شخصی یا تجاری را می‌دهد؛ مشروط بر حفظ Copyright Notice و متن مجوز.
+
+## لینک‌ها و ارتباط
+
+- [GitHub Repository](https://github.com/crypttopia/Dubly)
+- [Chrome Web Store](https://chromewebstore.google.com/detail/dubly/fendjlfddioginhjfehfchdmoddlbnlp)
+- [Privacy Policy](https://sites.google.com/view/dubly-privacy-policy)
+- پشتیبانی: `dubly.support@gmail.com`
+- X / Twitter: [@crypttopia](https://x.com/crypttopia)
+
+---
+
+<div align="center" dir="rtl">
+  Dubly یک پروژهٔ مستقل است و وابسته به Google LLC نیست و مورد تأیید یا حمایت آن قرار ندارد.
+</div>
