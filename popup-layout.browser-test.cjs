@@ -25,7 +25,7 @@ const path=require('node:path');
   assert.equal(await page.locator('#outputMode option').nth(2).getAttribute('value'),'both');
   assert.equal((await page.locator('.translation-settings h2').textContent()).trim(),'⚙ تنظیمات ترجمه');
   assert.equal(await page.locator('#language').inputValue(),'en');
-  const expectedLanguages=['af','ak','sq','am','ar','hy','az','eu','be','bn','bg','my','ca','zh-Hans','zh-Hant','hr','cs','da','nl','en','et','fil','fi','fr','gl','ka','de','el','gu','ha','he','hi','hu','is','id','it','ja','jv','kn','kk','km','rw','ko','lo','lv','lt','mk','ms','ml','mr','mn','ne','no','fa','pl','pt-BR','pt-PT','pa','ro','ru','sr','sd','si','sk','sl','es','su','sw','sv','ta','te','th','tr','uk','ur','uz','vi','zu'];
+  const expectedLanguages=['fa','af','ak','sq','am','ar','hy','az','eu','be','bn','bg','my','ca','zh-Hans','zh-Hant','hr','cs','da','nl','en','et','fil','fi','fr','gl','ka','de','el','gu','ha','he','hi','hu','is','id','it','ja','jv','kn','kk','km','rw','ko','lo','lv','lt','mk','ms','ml','mr','mn','ne','no','pl','pt-BR','pt-PT','pa','ro','ru','sr','sd','si','sk','sl','es','su','sw','sv','ta','te','th','tr','uk','ur','uz','vi','zu'];
   assert.deepEqual(await page.locator('#language option').evaluateAll(options=>options.map(option=>option.value)),expectedLanguages);
   console.log('PASS: translation controls expose all official languages and three output modes.');
 }finally{await browser.close();}})().catch(error=>{console.error(error);process.exitCode=1});

@@ -263,6 +263,8 @@ async function init() {
   $('key').value = savedKey;
   uiLanguage = preferences.uiLanguage === 'en' ? 'en' : 'fa';
   $('uiLanguage').value = uiLanguage;
+  const persianOption = $('language').querySelector?.('option[value="fa"]');
+  if (persianOption) $('language').prepend(persianOption);
   $('language').value = preferences.language || 'fa';
   $('outputMode').value = ['subtitles','both'].includes(preferences.outputMode) ? preferences.outputMode : preferences.floatingCaptions === true ? 'subtitles' : 'dubbing';
   $('originalVolume').value = $('outputMode').value === 'subtitles' ? preferences.subtitleVolume ?? 100 : preferences.originalVolume ?? (preferences.original ? 20 : 0);
