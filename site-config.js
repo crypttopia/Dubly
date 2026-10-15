@@ -7,7 +7,7 @@ globalThis.DUBLY_PUBLIC = {
   supportEmail: '',
   socials: [{label: 'X · @crypttopia', url: 'https://x.com/crypttopia'}],
   wallets: [
-    {currency: 'USDT', network: 'BNB Smart Chain (BEP20)', shortName: 'BNB Chain', address: '0xcea7d080c5DCD0300EBD4d53CABa4f1cf9325f58', qr: 'assets/wallet-qr.png'},
-    {currency: 'USDT', network: 'Base', shortName: 'Base', address: '0xcea7d080c5DCD0300EBD4d53CABa4f1cf9325f58', qr: 'assets/wallet-qr.png'}
+    {currency: 'USDT', network: 'BNB Smart Chain (BEP20)', shortName: 'BNB Chain', address: '0xdbA995Bd217887c53fcB8f6E7944dA5749Db18a0', qr: 'assets/wallet-qr.png'},
+    {currency: 'USDT', network: 'Base', shortName: 'Base', address: '0xdbA995Bd217887c53fcB8f6E7944dA5749Db18a0', qr: 'assets/wallet-qr.png'}
   ]
 };
